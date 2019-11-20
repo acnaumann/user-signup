@@ -16,12 +16,11 @@
 # If all input correct, direct to welcome page that states: "Welcome, [username]!"
 # use templates (one for index, one for home page and one for welcome page) to render the HTML for your web app
 
-from flask import Flask, request, redirect, render_template
-import html
-import os
+from flask import Flask, request, redirect, render_template, escape
+
 
 app = Flask(__name__)
-app = app.config['DEBUG'] = True
+app.config['DEBUG'] = True
 
 
 
@@ -29,15 +28,18 @@ app = app.config['DEBUG'] = True
 
 
 
-@app.route("/signup")
-def home():
+
+
+
 
 @app.route("/welcome")
 def welcome_greeting():
 
 
+
 @app.route("/")
 def index():
+    return render_template("home.html")
 
 
 
