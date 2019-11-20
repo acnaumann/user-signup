@@ -20,5 +20,27 @@ from flask import Flask, request, redirect, render_template
 import html
 import os
 
+app = Flask(__name__)
 app = app.config['DEBUG'] = True
+
+
+
+
+
+
+
+@app.route("/signup")
+def home():
+
+@app.route("/welcome")
+def welcome_greeting():
+
+
+@app.route("/")
+def index():
+
+
+
+
+app.run()
 
