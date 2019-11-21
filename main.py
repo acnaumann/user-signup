@@ -5,7 +5,7 @@
 # the following should trigger error:
 # any empty fields(not  email)
 # username/password not valid (ex:space char or less than 3 characters or more than 20 characters)
-# users password and password-confirmation do not match
+# user password and password-confirmation do not match
 # user provides email, but not a valid one - e.g. single @, single ., contains no spaces and is between 3 and 20 characters
 # feedback message should be next to the field it refers to 
     # **** do not use email input type. Just use text (does not perform client-side validation). The will allow us to check
@@ -24,50 +24,47 @@ app.config['DEBUG'] = True
 
 
 
-@app.route("/verify", methods=['POST'])
-def verify_entries():
-    username = request.form["user-name"]
-    password = request.form["password"]
-    verify_password = request.form['verify-password']
-    email = request.form["email"]
-
+# @app.route("/verify", methods=['POST'])
+# def verify_entries():
     
-    # if username == '':
-    #     error = 'Please enter a valid response'.format(username)
-    #     return redirect ("/?error=" + error)
+   
+#     
+#     
+
+
+        
+@app.route("/verify", methods=['POST'])
+def verify():
+    username = request.form["user-name"]
+    if len(username) < 3 or len(username) > 20 or username == '' or ' ' in username:
+        name_error = "That's not a valid username"
+        
         
 
+    password = request.form["password"]
+    if len(password) < 3 or len (password) > 20 or password == '' or ' ' in password:
+        pass_error = "That's not a valid password".format(password)
+        
 
-    if len(username) < 3 or len (username) > 20 or username == '' or ' ' in username:
-        error = "That's not a valid username".format(username)
-        return redirect ("/?error=" + error)
-
-
-    # if len(password) < 3 or len (password) > 20 or password == '' or ' ' in password:
-    #     error = "That's not a valid password".format(password)
-    #     return redirect ("/?error=" + error)
-
-    # if password != verify_password:
-    #     error = "Passwords don't match".format(verify_password)
-    #     return redirect ("/?error" + error)
-
-
+        
+    verify_password = request.form['verify-password']
+    if verify_password == '' or password != verify_password:
+        verify_pass_error = "Passwords don't match".format(verify_password)
+        
     
-
+    email = request.form["email"]
+    if email != '':
+        if ' ' in email or (email.count('@') > 1) or len(email)<3 or len(email) > 20 or (email.count('.') > 1):
+            email_error = "That's not a valid email".format(email)
+            return email_error
+           
 
     username = escape(username)
-# if (len(username) or len(password) or len()) < 20:
-#     error = "password must be less than 20 characters"
-#     return redirect ("/?error=" + error)
+    password = escape(password)
+    verify_password = escape(verify_password)
+    email = escape(email)
 
-    return render_template('welcome.html', username=username)
-# if password != verify-password:
-#     error = "Passwords did not match"
-
-
-
-
-
+    return render_template ("index.html", name_error=name_error, pass_error=pass_error, verify_pass_error=verify_pass_error, email_error=email_error)
 
 
 @app.route("/welcome")
