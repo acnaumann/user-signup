@@ -38,25 +38,30 @@ def verify():
     username = request.form["user-name"]
     if len(username) < 3 or len(username) > 20 or username == '' or ' ' in username:
         name_error = "That's not a valid username"
+    else:
+        name_error = None
         
         
 
     password = request.form["password"]
     if len(password) < 3 or len (password) > 20 or password == '' or ' ' in password:
         pass_error = "That's not a valid password".format(password)
-        
+    else: 
+        pass_error = None
 
         
     verify_password = request.form['verify-password']
     if verify_password == '' or password != verify_password:
         verify_pass_error = "Passwords don't match".format(verify_password)
-        
+    else:
+        verify_pass_error = None
     
     email = request.form["email"]
     if email != '':
         if ' ' in email or (email.count('@') > 1) or len(email)<3 or len(email) > 20 or (email.count('.') > 1):
             email_error = "That's not a valid email".format(email)
-            return email_error
+        else:
+            email_error = None
            
 
     username = escape(username)
@@ -64,13 +69,18 @@ def verify():
     verify_password = escape(verify_password)
     email = escape(email)
 
+    if not email_error and not pass_error and not name_error and not verify_pass_error:
+        return render_template("welcome.html", username=username)
+
     return render_template ("index.html", name_error=name_error, pass_error=pass_error, verify_pass_error=verify_pass_error, email_error=email_error)
 
+     
 
-@app.route("/welcome")
-def welcome_greeting():
-    username = request.form['username']
-    return render_template("welcome.html", username=username)
+
+# @app.route("/welcome")
+# def welcome_greeting():
+#     username = request.form['username']
+    
 
 
 
