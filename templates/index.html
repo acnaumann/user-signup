@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="/verify" method="POST">
+    
+    <label>
+        Username
+        <input type="text" name="user-name">
+        {% if error %}
+        <span class="error">{{error}}</span>
+        {% endif %}
+    </label>
+       
+    
+    <br>
+
+    <label>
+        Password
+        <input type="password" name="password">
+        {% if error %}
+        <span class="error">{{pass_error}}</span>
+        {% endif %}
+    </label>
+    <br>
+
+    <label>
+        Verify Password
+        <input type="password" name="verify-password">
+        
+    </label>
+    <br>
+
+    <label>
+        Email (optional)
+        <input type="text" name="email">
+        
+    </label>
+    <br>
+
+    <input type="submit" value="Submit"/>
+</form>
+
+
+
+
+
+{% endblock %}
