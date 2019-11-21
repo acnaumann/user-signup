@@ -11,26 +11,16 @@
     # **** do not use email input type. Just use text (does not perform client-side validation). The will allow us to check
     # **** that the server side validation is working by letting errors through the client side. DO use type='password' for 
     # **** for password and password-verification to hide characters typed (this input type does not include any additional validation.)
-# for username and email fields, preserve what user typed, so they don't have to retype
+# for username and email fields, preserve what user typed, so they don't have to retype   ***????
     # password fields should be cleared for security reasons
 # If all input correct, direct to welcome page that states: "Welcome, [username]!"
-# use templates (one for index, one for home page and one for welcome page) to render the HTML for your web app
+# use templates (one for index, one for home page and one for welcome page) to render the HTML for your web app    ***????
 
 from flask import Flask, request, redirect, render_template, escape
 
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-
-
-
-# @app.route("/verify", methods=['POST'])
-# def verify_entries():
-    
-   
-#     
-#     
-
 
         
 @app.route("/verify", methods=['POST'])
@@ -40,6 +30,7 @@ def verify():
         name_error = "That's not a valid username"
     else:
         name_error = None
+
         
         
 
@@ -62,7 +53,8 @@ def verify():
             email_error = "That's not a valid email".format(email)
         else:
             email_error = None
-           
+    else:
+            email_error = None       
 
     username = escape(username)
     password = escape(password)
